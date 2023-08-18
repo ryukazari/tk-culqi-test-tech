@@ -1,0 +1,27 @@
+service: culqi-technical-test
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  environment:
+    REDIS_ENDPOINT: ${env:REDIS_ENDPOINT}
+
+functions:
+  tokenCreation:
+    handler: src/tokenCreation.handler
+    events:
+      - http:
+          path: tokenCreation
+          method: post
+  getCardDetails:
+    handler: src/getCardDetails.handler
+    events:
+      - http:
+          path: getCardDetails/{id}
+          method: get
+
+plugins:
+  - serverless-offline
+  - serverless-esbuild
