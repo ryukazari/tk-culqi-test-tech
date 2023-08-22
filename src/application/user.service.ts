@@ -1,5 +1,4 @@
 import { inject, injectable } from "inversify";
-import { ResponseGetPkDto } from "../domain/dto/get-pk.response.dto";
 import { UserRepository } from "../domain/user.repository";
 
 @injectable()
@@ -9,7 +8,7 @@ export class UserService {
     private readonly repository: UserRepository
   ) {}
 
-  public getPkUser(): ResponseGetPkDto {
-    return this.repository.getPk();
+  public checkPkUser(token: string): boolean {
+    return this.repository.getPk(token);
   }
 }

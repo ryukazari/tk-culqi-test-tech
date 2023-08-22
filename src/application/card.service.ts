@@ -1,9 +1,9 @@
 import { inject, injectable } from "inversify";
-import { RequestCreateTokenDto } from "../domain/dto/create-token.request.dto";
-import { validateCardData, validateIdCard } from "../shared/validations";
+import { RequestCreateTokenDto } from "./dto/create-token.request.dto";
+import { validateCardData, validateIdCard } from "./validations";
 import { generateToken } from "../shared/generateToken";
 import { CardRepository } from "../domain/card.repository";
-import { ResponseGetCardByTokenDto } from "../domain/dto/get-card-by-token.response.dto";
+import { ResponseGetCardByTokenDto } from "./dto/get-card-by-token.response.dto";
 
 @injectable()
 export class CardService {

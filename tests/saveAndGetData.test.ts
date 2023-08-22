@@ -1,6 +1,6 @@
 import container from "../inversify.config";
 import { CardService } from "../src/application/card.service";
-import { RequestCreateTokenDto } from "../src/domain/dto/create-token.request.dto";
+import { RequestCreateTokenDto } from "../src/application/dto/create-token.request.dto";
 require("dotenv").config();
 
 describe("Create and Get data", () => {

@@ -1,10 +1,9 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { createToken } from "../services/tokenCreation";
-import { ResponseCreateTokenDto } from "../domain/dto/create-token.response.dto";
+import { ResponseCreateTokenDto } from "../application/dto/create-token.response.dto";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { statusErrorMapping } from "../errors/errors-code";
 import { InvalidCardError } from "../errors/card.error";
-import { RequestCreateTokenDto } from "../domain/dto/create-token.request.dto";
+import { RequestCreateTokenDto } from "../application/dto/create-token.request.dto";
 import container from "../../inversify.config";
 import { CardService } from "../application/card.service";
 

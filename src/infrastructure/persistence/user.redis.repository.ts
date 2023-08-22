@@ -1,12 +1,10 @@
 import { injectable } from "inversify";
-import { ResponseGetPkDto } from "../../domain/dto/get-pk.response.dto";
 import { UserRepository } from "../../domain/user.repository";
+import { validUsers } from "../database/pk_users.mock.data";
 
 @injectable()
 export class UserRedisRepository implements UserRepository {
-  getPk(): ResponseGetPkDto {
-    return {
-      token: "pk_test_LsRBKejzCOEEWOsw",
-    };
+  getPk(token: string): boolean {
+    return validUsers.includes(token);
   }
 }

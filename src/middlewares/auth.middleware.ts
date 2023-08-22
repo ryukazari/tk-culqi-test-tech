@@ -12,18 +12,18 @@ export const authMiddleware = (event: APIGatewayProxyEventHeaders) => {
   if (!token) throw new TokenNotFoundError();
 
   const userSevice = container.get(UserService);
-  const { token: pk_default } = userSevice.getPkUser();
 
   const tokenRegex = /^pk_test_[A-Za-z0-9]{16}$/;
 
   const [prefix, authToken] = token.split(" ");
+  const isValid = userSevice.checkPkUser(authToken);
   if (
     !authToken ||
     !tokenRegex.test(authToken) ||
     prefix != "Bearer" ||
-    pk_default != authToken
+    !isValid
   ) {
-    if (pk_default != authToken) {
+    if (!isValid) {
       throw new UnauthorizedTokenError(authToken);
     }
     throw new InvalidTokenError(authToken);

@@ -1,4 +1,3 @@
-import * as Joi from "joi";
 import { InvalidCardError, InvalidIdCardParameter } from "../errors/card.error";
 import { z } from "zod";
 
@@ -11,12 +10,17 @@ export const validateCardData = (
 ): void => {
   const schema = z.object({
     card_number: z
-      .number()
+      .string()
       .refine((value) => luhnAlgorithmValidation(value), {
         message: "Card number did not pass the LUHN validation",
       })
-      .refine((value) => value >= 1000000000000 && value <= 9999999999999999),
-    cvv: z.number().refine((value) => value >= 100 && value <= 9999),
+      .refine(
+        (value) =>
+          Number(value) >= 1000000000000 && Number(value) <= 9999999999999999
+      ),
+    cvv: z
+      .string()
+      .refine((value) => Number(value) >= 100 && Number(value) <= 9999),
     expiration_month: z.string().regex(/^(0?[1-9]|1[0-2])$/),
     expiration_year: z
       .string()
@@ -42,8 +46,8 @@ export const validateCardData = (
 
   try {
     schema.parse({
-      card_number,
-      cvv,
+      card_number: card_number.toString(),
+      cvv: cvv.toString(),
       expiration_month,
       expiration_year,
       email,
@@ -68,7 +72,7 @@ export const validateIdCard = (id: string): void => {
   }
 };
 
-const luhnAlgorithmValidation = (cardNumber: number): boolean => {
+const luhnAlgorithmValidation = (cardNumber: string): boolean => {
   const digits = cardNumber.toString().replace(/\D/g, "").split("").map(Number);
   let sum = 0;
   let isAlternate = false;

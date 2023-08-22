@@ -1,5 +1,3 @@
-import { ResponseGetPkDto } from "./dto/get-pk.response.dto";
-
 export interface UserRepository {
-  getPk(): ResponseGetPkDto;
+  getPk(token: string): boolean;
 }

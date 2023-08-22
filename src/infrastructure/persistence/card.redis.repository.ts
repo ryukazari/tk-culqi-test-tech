@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { CardRepository } from "../../domain/card.repository";
-import { RequestCreateTokenDto } from "../../domain/dto/create-token.request.dto";
-import { ResponseGetCardByTokenDto } from "../../domain/dto/get-card-by-token.response.dto";
+import { RequestCreateTokenDto } from "../../application/dto/create-token.request.dto";
+import { ResponseGetCardByTokenDto } from "../../application/dto/get-card-by-token.response.dto";
 import { closeClient, getClient } from "../database/connection";
 import { InvalidTokenCardError } from "../../errors/card.error";
 

@@ -3,7 +3,7 @@ import { statusErrorMapping } from "../errors/errors-code";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import container from "../../inversify.config";
 import { CardService } from "../application/card.service";
-import { ResponseGetCardByTokenDto } from "../domain/dto/get-card-by-token.response.dto";
+import { ResponseGetCardByTokenDto } from "../application/dto/get-card-by-token.response.dto";
 
 export const handler = async (
   event: APIGatewayProxyEvent
