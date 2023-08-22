@@ -10,13 +10,13 @@ provider:
 
 functions:
   tokenCreation:
-    handler: src/tokenCreation.handler
+    handler: src/presenter/tokenCreation.handler
     events:
       - http:
           path: tokenCreation
           method: post
   getCardDetails:
-    handler: src/getCardDetails.handler
+    handler: src/presenter/getCardDetails.handler
     events:
       - http:
           path: getCardDetails/{id}

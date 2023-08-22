@@ -1,4 +1,4 @@
-import { generateToken } from "../src/utils/generateToken";
+import { generateToken } from "../src/shared/generateToken";
 
 describe("Generate Token function", () => {
   const result = generateToken(16);

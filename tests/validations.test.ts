@@ -1,4 +1,4 @@
-import { validateCardData, validateIdCard } from "../src/utils/validations";
+import { validateCardData, validateIdCard } from "../src/shared/validations";
 
 describe("Validate data", () => {
   const correct_card_data = {
@@ -27,7 +27,7 @@ describe("Validate data", () => {
     const { card_number, cvv, expiration_year, email } = correct_card_data;
     expect(() => {
       validateCardData(card_number, cvv, "25", expiration_year, email);
-    }).toThrow("Invalid data in the request body");
+    }).toThrow("Card has not a valid format or it's empty.");
   });
   it("Should pass validation for id_card format", async () => {
     expect(() => {
@@ -37,6 +37,6 @@ describe("Validate data", () => {
   it("Should not pass validation for id_card format", async () => {
     expect(() => {
       validateIdCard(invalid_id_card);
-    }).toThrow("Invalid data in the request body");
+    }).toThrow("Invalid parameter ID.");
   });
 });

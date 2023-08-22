@@ -1,16 +1,31 @@
-export const authMiddleware = (event: any) => {
-  const token = event.headers.Authorization;
+import { APIGatewayProxyEventHeaders } from "aws-lambda";
+import container from "../../inversify.config";
+import { UserService } from "../application/user.service";
+import {
+  InvalidTokenError,
+  TokenNotFoundError,
+  UnauthorizedTokenError,
+} from "../errors/authorization.error";
 
-  const pk_default = "pk_test_LsRBKejzCOEEWOsw";
+export const authMiddleware = (event: APIGatewayProxyEventHeaders) => {
+  const token = event.Authorization;
+  if (!token) throw new TokenNotFoundError();
+
+  const userSevice = container.get(UserService);
+  const { token: pk_default } = userSevice.getPkUser();
 
   const tokenRegex = /^pk_test_[A-Za-z0-9]{16}$/;
-  let messageError = "";
+
   const [prefix, authToken] = token.split(" ");
-  if (!authToken || !tokenRegex.test(authToken) || prefix != "Bearer") {
-    messageError = "Invalid authorization token";
+  if (
+    !authToken ||
+    !tokenRegex.test(authToken) ||
+    prefix != "Bearer" ||
+    pk_default != authToken
+  ) {
     if (pk_default != authToken) {
-      messageError += " for this function";
+      throw new UnauthorizedTokenError(authToken);
     }
+    throw new InvalidTokenError(authToken);
   }
-  if (messageError) throw new Error(messageError);
 };
